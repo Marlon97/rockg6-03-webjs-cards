@@ -5,12 +5,9 @@ const { Deck, Hand } = require('./app/deck/deck');
 
 const deck = new Deck();
 
-app.get('/', (req, res) => {
-    res.send(`<html>
-    <head>
-      <title>Deck.js</title>
-      <style>
-        body {
+app.get('/styles.css', (req, res) => {
+   res.send(`
+       body {
           background-color: #eee;
         }
 
@@ -82,7 +79,9 @@ app.get('/', (req, res) => {
           top: 20px;
         }
         
-        .card[number="3"] .symbols div:nth-child(2) {
+        .card[number="3"] .symbols div:nth-child(2),
+        .card[number="5"] .symbols div:nth-child(5) {
+          left: 50%;
           top: 50%;
           transform: translateX(-50%) translateY(-50%);
         }
@@ -92,8 +91,43 @@ app.get('/', (req, res) => {
           transform: translateX(-50%) rotate(0.5turn) ;
         }
         
+        .card[number="4"] .symbols div:nth-child(1),
+        .card[number="4"] .symbols div:nth-child(2),
+        .card[number="5"] .symbols div:nth-child(1),
+        .card[number="5"] .symbols div:nth-child(2){
+          top: 20px;
+        }
         
+        .card[number="4"] .symbols div:nth-child(3), 
+        .card[number="4"] .symbols div:nth-child(4),
+        .card[number="5"] .symbols div:nth-child(3), 
+        .card[number="5"] .symbols div:nth-child(4){
+          bottom: 20px;
+          transform: rotate(0.5turn) ;
+        }
+        
+        .card[number="4"] .symbols div:nth-child(1),
+        .card[number="4"] .symbols div:nth-child(3),
+        .card[number="5"] .symbols div:nth-child(1),
+        .card[number="5"] .symbols div:nth-child(3){
+          left: 20px;
+        }
+        
+        .card[number="4"] .symbols div:nth-child(2),
+        .card[number="4"] .symbols div:nth-child(4),
+        .card[number="5"] .symbols div:nth-child(2),
+        .card[number="5"] .symbols div:nth-child(4){
+          right: 20px;
+        }
+   `);
+});
 
+app.get('/', (req, res) => {
+    res.send(`<html>
+    <head>
+      <title>Deck.js</title>
+      <link rel="stylesheet" href="./styles.css">
+      <style>
       </style>
     </head>
     <body>
