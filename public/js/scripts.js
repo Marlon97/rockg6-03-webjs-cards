@@ -1,3 +1,16 @@
+const createCardCorner = (number, symbol) => {
+    return `
+            <div class="card-corner">
+              <div>${number}</div>
+              <div>${symbol}</div>
+            </div>
+            `;
+}
+
+const createCardSymbols = (number, symbol, isNumber) => {
+    return number === 'A' ? `<div>${symbol}</div>` : (isNumber?(new Array(parseInt(number)).fill(symbol).map((cardSymbol) => `<div>${cardSymbol}</div>`).join('')):(number === 'J' || number === 'Q' || number === 'K'? (`<div class='image'></div>`) : ''));
+}
+
 const createCard = (number, symbol, isNumber) => {
     const cardDiv = document.createElement('div');
 
@@ -6,23 +19,11 @@ const createCard = (number, symbol, isNumber) => {
     cardDiv.setAttribute('number', number);
 
     cardDiv.innerHTML = `
-            <div class="card-corner top-left">
-              <div>${number}</div>
-              <div>${symbol}</div>
-            </div>
+            ${createCardCorner(number, symbol)}
             <div class="symbols">
-              ${(isNumber) ? `${new Array(parseInt(number))
-        .fill(symbol)
-        .map((cardSymbol) => `
-                    <div>${cardSymbol}</div>
-                `)
-        .join('')
-    }` : ''}
+                ${createCardSymbols(number, symbol, isNumber)}
             </div>
-            <div class="card-corner bottom-right">
-              <div>${number}</div>
-              <div>${symbol}</div>
-            </div>
+            ${createCardCorner(number, symbol)}
           `;
 
     return cardDiv;

@@ -24,14 +24,13 @@ body {
     font-family: monospace;
     text-align: center;
     position: absolute;
-}
-
-.top-left {
     top: 0px;
     left: 0px;
 }
 
-.bottom-right {
+.symbols + .card-corner {
+    top: auto;
+    left: auto;
     right: 0px;
     bottom: 0px;
     transform: rotate(0.5turn);
@@ -72,7 +71,8 @@ body {
 
 .card[number="3"] .symbols div:nth-child(2),
 .card[number="5"] .symbols div:nth-child(5),
-.card[number="9"] .symbols div:nth-child(9) {
+.card[number="9"] .symbols div:nth-child(9),
+.card[number="A"] .symbols div:nth-child(1){
     left: 50%;
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
@@ -225,4 +225,38 @@ body {
 .card[number="10"] .symbols div:nth-child(10){
     bottom: 40%;
     transform: translateY(50%) rotate(0.5turn) ;
+}
+
+.card[number="A"] .symbols div:nth-child(1){
+    font-size: 60px;
+}
+
+.card .symbols div.image{
+    width: calc(100% - 10px - 10px);
+    height: calc(100% - 10px - 10px);
+    margin: 10px;
+    background-image: url('/images/Cards_Transparent.png');
+    background-position: -14px -17px;
+    background-size: 320px 632px;
+    background-repeat: no-repeat;
+}
+
+.card[number="Q"] .symbols div.image{
+    background-position-x: -119px;
+}
+
+.card[number="K"] .symbols div.image{
+    background-position-x: -224px;
+}
+
+.card[symbol="♦"] .symbols div.image{
+    background-position-y: -329px;
+}
+
+.card[symbol="♥"] .symbols div.image{
+    background-position-y: -173px;
+}
+
+.card[symbol="♣"] .symbols div.image{
+    background-position-y: -485px;
 }
