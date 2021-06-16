@@ -127,8 +127,6 @@ app.get('/', (req, res) => {
     <head>
       <title>Deck.js</title>
       <link rel="stylesheet" href="./styles.css">
-      <style>
-      </style>
     </head>
     <body>
       <h1>Deck.js</h1>
