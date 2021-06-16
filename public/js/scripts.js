@@ -28,19 +28,21 @@ const createCard = (number, symbol, isNumber) => {
     return cardDiv;
 }
 
-(async () => {
-    const deck = await  (await fetch('/deck')).json();
-    const container = document.querySelector('.deck');
+window.addEventListener('load', function() {
+    (async () => {
+        const deck = await  (await fetch('/deck')).json();
+        const container = document.querySelector('.deck');
 
 
 
-    deck.forEach((card) => {
-        const number = card.slice(0, -1);
-        const symbol = card.slice(-1);
-        const isNumber = !isNaN(number);
+        deck.forEach((card) => {
+            const number = card.slice(0, -1);
+            const symbol = card.slice(-1);
+            const isNumber = !isNaN(number);
 
-        container.append(createCard(number, symbol, isNumber));
+            container.append(createCard(number, symbol, isNumber));
 
-    });
+        });
 
-})();
+    })();
+});
