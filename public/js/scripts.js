@@ -8,35 +8,60 @@ const createCardCorner = (number, symbol) => {
 }
 
 const createCardSymbols = (number, symbol, isNumber) => {
-    return number === 'A' ? `<div>${symbol}</div>` : (isNumber?(new Array(parseInt(number)).fill(symbol).map((cardSymbol) => `<div>${cardSymbol}</div>`).join('')):(['J','Q','K'].includes(number)? (`<div class='image'></div>`) : ''));
+    return '<div class="symbols">'+(number === 'A' ? `<div>${symbol}</div>` : (isNumber?(new Array(parseInt(number)).fill(symbol).map((cardSymbol) => `<div>${cardSymbol}</div>`).join('')):(['J','Q','K'].includes(number)? (`<div class='image'></div>`) : '')))+'</div>';
+}
+
+const createCardBack = () => {
+    return '<div class="back"></div>';
+}
+
+const createCardDiv = (card) => {
+    const cardDiv = document.createElement('div');
+    cardDiv.classList.add('card');
+    cardDiv.setAttribute('symbol',card.symbol);
+    cardDiv.setAttribute('number', card.number);
+    return cardDiv;
 }
 
 const createCard = (number, symbol, isNumber) => {
-    const cardDiv = document.createElement('div');
+    const cardDiv = createCardDiv({symbol, number});
+
+    /**const cardDiv = document.createElement('div');
 
     cardDiv.classList.add('card');
     cardDiv.setAttribute('symbol',symbol);
-    cardDiv.setAttribute('number', number);
+    cardDiv.setAttribute('number', number);**/
 
     cardDiv.innerHTML = `
-            ${createCardCorner(number, symbol)}
-            <div class="symbols">
+        <div class="container">
+            <div class="front">
+                ${createCardCorner(number, symbol)}
                 ${createCardSymbols(number, symbol, isNumber)}
+                ${createCardCorner(number, symbol)}
             </div>
-            ${createCardCorner(number, symbol)}
+            ${createCardBack()}
+        </div>
+            
           `;
+
+    cardDiv.addEventListener('click', () => {
+        if (cardDiv.classList.contains('flipped')){
+            cardDiv.classList.remove('flipped');
+        }else{
+            cardDiv.classList.add('flipped');
+        }
+    });
 
     return cardDiv;
 }
 
 window.addEventListener('load', function() {
+    const container = document.querySelector('.deck');
+    const cardZise = 5;
     (async () => {
-        const deck = await  (await fetch('/deck')).json();
-        const container = document.querySelector('.deck');
+        const cards = await  (await fetch(`/deck/${cardZise}`)).json();
 
-
-
-        deck.forEach((card) => {
+        cards.forEach((card) => {
             const number = card.slice(0, -1);
             const symbol = card.slice(-1);
             const isNumber = !isNaN(number);

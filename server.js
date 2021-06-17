@@ -7,6 +7,11 @@ const { Deck, Hand } = require('./app/deck/deck');
 
 const deck = new Deck();
 
+app.get('/deck/:size', (req,res) => {
+    const { size } = req.params;
+    res.send(deck.dispatchCards(parseInt(size)));
+});
+
 app.get('/deck', (req,res) => {
    res.send(deck.cards);
 });
