@@ -8,7 +8,7 @@ const createCardCorner = (number, symbol) => {
 }
 
 const createCardSymbols = (number, symbol, isNumber) => {
-    return number === 'A' ? `<div>${symbol}</div>` : (isNumber?(new Array(parseInt(number)).fill(symbol).map((cardSymbol) => `<div>${cardSymbol}</div>`).join('')):(number === 'J' || number === 'Q' || number === 'K'? (`<div class='image'></div>`) : ''));
+    return number === 'A' ? `<div>${symbol}</div>` : (isNumber?(new Array(parseInt(number)).fill(symbol).map((cardSymbol) => `<div>${cardSymbol}</div>`).join('')):(['J','Q','K'].includes(number)? (`<div class='image'></div>`) : ''));
 }
 
 const createCard = (number, symbol, isNumber) => {
