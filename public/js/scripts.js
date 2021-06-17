@@ -23,7 +23,10 @@ const createCardDiv = (card) => {
     return cardDiv;
 }
 
-const createCard = (number, symbol, isNumber) => {
+const createCard = (card) => {
+    const number = card.slice(0, -1);
+    const symbol = card.slice(-1);
+    const isNumber = !isNaN(number);
     const cardDiv = createCardDiv({symbol, number});
 
     /**const cardDiv = document.createElement('div');
@@ -55,20 +58,18 @@ const createCard = (number, symbol, isNumber) => {
     return cardDiv;
 }
 
+const createDeck = async (selector, path) => {
+    const container = document.querySelector(selector);
+    const cards = await  (await fetch(path)).json();
+    cards.forEach((card) => {
+        container.append(createCard(card));
+    });
+}
+
 window.addEventListener('load', function() {
-    const container = document.querySelector('.deck');
-    const cardZise = 5;
     (async () => {
-        const cards = await  (await fetch(`/deck/${cardZise}`)).json();
-
-        cards.forEach((card) => {
-            const number = card.slice(0, -1);
-            const symbol = card.slice(-1);
-            const isNumber = !isNaN(number);
-
-            container.append(createCard(number, symbol, isNumber));
-
-        });
-
+        await createDeck('.deck.widow', '/widow');
+        const cardSiZe = 5;
+        await createDeck('.deck.hand', `/deck/${cardSiZe}`);
     })();
 });
