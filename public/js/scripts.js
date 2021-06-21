@@ -23,6 +23,14 @@ const createCardDiv = (card) => {
     return cardDiv;
 }
 
+const createCardFront = (contenido) => {
+    return `
+        <div class="front">
+            ${contenido}
+        </div>
+    `;
+}
+
 const createCard = (card, flipped) => {
     const number = card.slice(0, -1);
     const symbol = card.slice(-1);
@@ -37,11 +45,11 @@ const createCard = (card, flipped) => {
 
     cardDiv.innerHTML = `
         <div class="container">
-            <div class="front">
+            ${createCardFront(`
                 ${createCardCorner(number, symbol)}
                 ${createCardSymbols(number, symbol, isNumber)}
                 ${createCardCorner(number, symbol)}
-            </div>
+            `)}
             ${createCardBack()}
         </div>
             
@@ -70,12 +78,16 @@ const createDeck = async ({selector, path, flipped}) => {
     });
 }
 
+const onClickElementById = (id, callback) => {
+    document.getElementById(id).addEventListener('click', callback);
+}
+
 window.addEventListener('load', function() {
     (async () => {
         await createDeck({selector:'.deck.table', path:'/table', flipped:2});
         const cardSiZe = 2;
         await createDeck({selector:'.deck.hand', path:`/deck/${cardSiZe}`, flipped: cardSiZe});
-        document.getElementById('flip-cards').addEventListener('click', () => {
+        onClickElementById('flip-cards', () => {
             document.querySelectorAll('.deck.hand .card').forEach((card, index) => {
                 setTimeout(() => {
                     if(card.classList.contains('flipped')){
@@ -85,6 +97,14 @@ window.addEventListener('load', function() {
                     }
                 }, (500 * (index)))
             });
+        });
+        onClickElementById('button-hold', async () => {
+            const holdResponse = await (await fetch('/hold')).json();
+            console.log("You are holding", holdResponse);
+        });
+        onClickElementById('button-Withdraw', async () => {
+            const withdrawResponse = await (await fetch('/withdraw')).json();
+            console.log("withdraw :( ", withdrawResponse);
         });
     })();
 });
