@@ -1,5 +1,4 @@
 html {
-/**    background-color: #00BB2D;**/
     text-align: center;
     background-image: url('/images/bg-carta-ficha.gif');
     background-size: cover;
@@ -10,10 +9,6 @@ h1, h2{
     color: white;
 }
 
-
-/*
-.imagen:hover {}
-*/
 .filtro-gris{
     filter: grayscale(80%);
     transition:all .5s ease-in-out;
@@ -347,4 +342,23 @@ h1, h2{
 
 .card.flipped .container{
     transform: rotateY(0.5turn);
+}
+
+.buttons{
+    margin-top: 20px;
+}
+
+.buttons button{
+    background-color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.buttons button:hover{
+    background-color: #88888b;
+    transition: all .5s ease-in-out;
 }
