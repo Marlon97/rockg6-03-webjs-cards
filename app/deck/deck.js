@@ -13,8 +13,8 @@ class Deck {
     }
 
     dispatchCards(size) {
-        return new Array(size)
-            .fill()
+        return new Array(parseInt(size))
+            .fill('')
             .map(
                 () =>
                     this.cards.splice(parseInt(Math.random() * this.cards.length), 1)[0]
