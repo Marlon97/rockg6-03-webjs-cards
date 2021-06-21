@@ -1,11 +1,24 @@
-body {
-    background-color: #00BB2D;
+html {
+/**    background-color: #00BB2D;**/
+    text-align: center;
+    background-image: url('/images/bg-carta-ficha.gif');
+    background-size: cover;
 }
 
-h1{
+h1, h2{
     text-align: center;
     color: white;
 }
+
+
+/*
+.imagen:hover {}
+*/
+.filtro-gris{
+    filter: grayscale(80%);
+    transition:all .5s ease-in-out;
+}
+
 
 /**.card {
     background-color: #dfdfdf;

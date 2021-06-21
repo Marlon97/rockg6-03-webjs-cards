@@ -106,5 +106,14 @@ window.addEventListener('load', function() {
             const withdrawResponse = await (await fetch('/withdraw')).json();
             console.log("withdraw :( ", withdrawResponse);
         });
+
+        document.getElementById('button-Withdraw').addEventListener("mouseover", function(){
+            document.querySelector('html').classList.add('filtro-gris')
+        });
+        document.getElementById('button-Withdraw').addEventListener("mouseout", () => {
+            document.querySelector('html').classList.remove('filtro-gris')
+        });
+
+
     })();
 });
