@@ -76,12 +76,14 @@ window.addEventListener('load', function() {
         const cardSiZe = 2;
         await createDeck({selector:'.deck.hand', path:`/deck/${cardSiZe}`, flipped: cardSiZe});
         document.getElementById('flip-cards').addEventListener('click', () => {
-            document.querySelectorAll('.deck.hand .card').forEach((card) => {
-                if(card.classList.contains('flipped')){
-                    card.classList.remove('flipped');
-                }else{
-                    card.classList.add('flipped');
-                }
+            document.querySelectorAll('.deck.hand .card').forEach((card, index) => {
+                setTimeout(() => {
+                    if(card.classList.contains('flipped')){
+                        card.classList.remove('flipped');
+                    }else{
+                        card.classList.add('flipped');
+                    }
+                }, (500 * (index)))
             });
         });
     })();
