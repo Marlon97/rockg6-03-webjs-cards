@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-app.use(express.static('public'))
+app.use(express.static('public'));
 
 const { Deck, Hand } = require('./app/deck/deck');
 
@@ -20,6 +20,20 @@ app.get('/deck/:size', (req,res) => {
 
 app.get('/deck', (req,res) => {
    res.send(deck.cards);
+});
+
+app.get('/hold', (req,res) => {
+    console.log('someone is trying to hold')
+    res.send({
+        ok: true
+    });
+});
+
+app.get('/withdraw', (req,res) => {
+    console.log('someone is trying to withdraw')
+    res.send({
+        ok: true
+    });
 });
 
 app.listen(4001, () => {
