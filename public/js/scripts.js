@@ -23,7 +23,7 @@ const createCardDiv = (card) => {
     return cardDiv;
 }
 
-const createCard = (card) => {
+const createCard = (card, flipped) => {
     const number = card.slice(0, -1);
     const symbol = card.slice(-1);
     const isNumber = !isNaN(number);
@@ -55,21 +55,34 @@ const createCard = (card) => {
         }
     });
 
+    if (flipped) {
+        cardDiv.classList.add('flipped');
+    }
+
     return cardDiv;
 }
 
-const createDeck = async (selector, path) => {
+const createDeck = async ({selector, path, flipped}) => {
     const container = document.querySelector(selector);
     const cards = await  (await fetch(path)).json();
-    cards.forEach((card) => {
-        container.append(createCard(card));
+    cards.forEach((card, index) => {
+        container.append(createCard(card, (index < flipped)));
     });
 }
 
 window.addEventListener('load', function() {
     (async () => {
-        await createDeck('.deck.widow', '/widow');
-        const cardSiZe = 5;
-        await createDeck('.deck.hand', `/deck/${cardSiZe}`);
+        await createDeck({selector:'.deck.table', path:'/table', flipped:2});
+        const cardSiZe = 2;
+        await createDeck({selector:'.deck.hand', path:`/deck/${cardSiZe}`, flipped: cardSiZe});
+        document.getElementById('flip-cards').addEventListener('click', () => {
+            document.querySelectorAll('.deck.hand .card').forEach((card) => {
+                if(card.classList.contains('flipped')){
+                    card.classList.remove('flipped');
+                }else{
+                    card.classList.add('flipped');
+                }
+            });
+        });
     })();
 });
